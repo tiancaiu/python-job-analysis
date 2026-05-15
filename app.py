@@ -51,7 +51,8 @@ with col_a:
                           text=city_salary["avg_min"].round(1), textposition="outside"))
     fig1.add_trace(go.Bar(name="最高薪资(K)", x=city_salary["city"], y=city_salary["avg_max"].round(1),
                           text=city_salary["avg_max"].round(1), textposition="outside"))
-    fig1.update_layout(barmode="group", xaxis_title="城市", yaxis_title="薪资 (K/月)")
+    fig1.update_layout(barmode="group", xaxis_title="城市", yaxis_title="薪资 (K/月)",
+                       xaxis=dict(tickangle=0), yaxis=dict(tickangle=0))
     st.plotly_chart(fig1, use_container_width=True)
 
 with col_b:
@@ -101,6 +102,7 @@ fig5 = px.scatter(
     title="各城市岗位薪资分布",
     labels={"salary_min": "最低薪资(K)", "salary_max": "最高薪资(K)"},
 )
+fig5.update_layout(xaxis=dict(tickangle=0), yaxis=dict(tickangle=0))
 st.plotly_chart(fig5, use_container_width=True)
 
 # ── 结论 ──
