@@ -2,6 +2,10 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+from io import BytesIO
+import numpy as np
 
 st.set_page_config(page_title="Python实习岗位分析", layout="wide")
 st.title("Python 实习岗位数据分析")
@@ -57,16 +61,31 @@ col_c, col_d = st.columns(2)
 with col_c:
     st.subheader("岗位类型分布")
     title_counts = filtered["title"].value_counts().head(10)
-    fig3 = px.bar(x=title_counts.values, y=title_counts.index, orientation="h",
-                  labels={"x": "岗位数", "y": "岗位名称"}, title="Top 10 岗位类型")
-    st.plotly_chart(fig3, use_container_width=True)
+    if not title_counts.empty:
+        fig3 = px.bar(x=title_counts.values, y=title_counts.index, orientation="h",
+                      labels={"x": "岗位数", "y": "岗位名称"}, title="Top 10 岗位类型")
+        st.plotly_chart(fig3, use_container_width=True)
+    else:
+        st.write("暂无数据")
 
 with col_d:
     st.subheader("热门技能词云")
-    all_skills = filtered["skills"].str.split(", ").explode().value_counts().head(20)
-    fig4 = px.bar(x=all_skills.values, y=all_skills.index, orientation="h",
-                  labels={"x": "出现次数", "y": "技能"}, title="Top 20 技能需求")
-    st.plotly_chart(fig4, use_container_width=True)
+    all_skills = filtered["skills"].str.split(", ").explode().value_counts().to_dict()
+    if all_skills:
+        wc = WordCloud(
+            font_path=None, width=600, height=400,
+            background_color="white", colormap="viridis",
+            max_words=50, relative_scaling=0.5,
+        )
+        wc.generate_from_frequencies(all_skills)
+        fig4, ax = plt.subplots(figsize=(8, 5))
+        ax.imshow(wc, interpolation="bilinear")
+        ax.axis("off")
+        fig4.tight_layout(pad=0)
+        st.pyplot(fig4)
+        plt.close(fig4)
+    else:
+        st.write("暂无数据")
 
 # ── 图表行 3 ──
 st.subheader("城市 × 薪资散点图")
