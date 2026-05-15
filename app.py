@@ -71,7 +71,7 @@ with col_c:
         fig3 = px.bar(x=title_counts.index, y=title_counts.values,
                       labels={"x": "", "y": "岗位数"}, title="Top 10 岗位类型",
                       text_auto=".0f")
-        fig3.update_layout(height=380, margin=dict(l=10, r=10, t=40, b=10))
+        fig3.update_layout(height=380, margin=dict(l=10, r=10, t=40, b=60), xaxis=dict(tickangle=0))
         fig3.update_traces(textposition="outside")
         st.plotly_chart(fig3, use_container_width=True)
     else:
@@ -87,7 +87,7 @@ with col_d:
         fig4 = px.bar(x=skills_counts.index, y=skills_counts.values,
                       labels={"x": "", "y": "出现次数"}, title="Top 20 技能需求",
                       text_auto=".0f")
-        fig4.update_layout(height=500, margin=dict(l=10, r=10, t=40, b=10))
+        fig4.update_layout(height=500, margin=dict(l=10, r=10, t=40, b=60), xaxis=dict(tickangle=0))
         fig4.update_traces(textposition="outside")
         st.plotly_chart(fig4, use_container_width=True)
     else:
