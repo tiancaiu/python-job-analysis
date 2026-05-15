@@ -71,9 +71,9 @@ with col_c:
     if not title_counts.empty:
         title_counts = title_counts.iloc[::-1]
         fig3 = px.bar(x=title_counts.values, y=title_counts.index, orientation="h",
-                      labels={"x": "岗位数", "y": ""}, title="Top 10 岗位类型",
+                      labels={"x": "岗位数", "y": "岗位名称"}, title="Top 10 岗位类型",
                       text_auto=".0f")
-        fig3.update_layout(height=380, margin=dict(l=10, r=10, t=40, b=10), yaxis=dict(tickangle=0))
+        fig3.update_layout(height=380)
         fig3.update_traces(textposition="outside")
         st.plotly_chart(fig3, use_container_width=True)
     else:
@@ -88,9 +88,9 @@ with col_d:
     if not skills_counts.empty:
         skills_counts = skills_counts.iloc[::-1]
         fig4 = px.bar(x=skills_counts.values, y=skills_counts.index, orientation="h",
-                      labels={"x": "出现次数", "y": ""}, title="Top 20 技能需求",
+                      labels={"x": "出现次数", "y": "技能"}, title="Top 20 技能需求",
                       text_auto=".0f")
-        fig4.update_layout(height=500, margin=dict(l=10, r=10, t=40, b=10), yaxis=dict(tickangle=0))
+        fig4.update_layout(height=500)
         fig4.update_traces(textposition="outside")
         st.plotly_chart(fig4, use_container_width=True)
     else:
