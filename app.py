@@ -69,9 +69,8 @@ with col_c:
     st.subheader("岗位类型分布")
     title_counts = filtered["title"].value_counts().head(10)
     if not title_counts.empty:
-        title_counts = title_counts.iloc[::-1]
-        fig3 = px.bar(x=title_counts.values, y=title_counts.index, orientation="h",
-                      labels={"x": "岗位数", "y": "岗位名称"}, title="Top 10 岗位类型",
+        fig3 = px.bar(x=title_counts.index, y=title_counts.values,
+                      labels={"x": "岗位名称", "y": "岗位数"}, title="Top 10 岗位类型",
                       text_auto=".0f")
         fig3.update_layout(height=380)
         fig3.update_traces(textposition="outside")
@@ -86,9 +85,8 @@ with col_d:
     skills_counts = all_skills_raw.value_counts().head(20)
 
     if not skills_counts.empty:
-        skills_counts = skills_counts.iloc[::-1]
-        fig4 = px.bar(x=skills_counts.values, y=skills_counts.index, orientation="h",
-                      labels={"x": "出现次数", "y": "技能"}, title="Top 20 技能需求",
+        fig4 = px.bar(x=skills_counts.index, y=skills_counts.values,
+                      labels={"x": "技能", "y": "出现次数"}, title="Top 20 技能需求",
                       text_auto=".0f")
         fig4.update_layout(height=500)
         fig4.update_traces(textposition="outside")
